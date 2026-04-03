@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'students/base.html' %}
+    {% block content %}
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white ">
+                <h4>Add Student</h4>
+            </div>
+            <div class="card-body">   
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{student_data.as_p}}
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="{% url 'students_list' %}"class="btn btn-primary mb3">Back</a>
+                        <input class="btn btn-success" type="submit" value="Update">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>
