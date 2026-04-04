@@ -97,25 +97,27 @@ WSGI_APPLICATION = 'config.wsgi.application'
 #         }
 #     }
 # }
-DATABASE_URL = config("DATABASE_URL", default=None)
+
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 if DATABASE_URL:
+    # Railway / Production (PostgreSQL)
     DATABASES = {
         "default": dj_database_url.parse(DATABASE_URL)
     }
 else:
+    # Local (MySQL)
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
-            "NAME": config("DB_NAME"),
-            "USER": config("DB_USER"),
-            "PASSWORD": config("DB_PASSWORD"),
-            "HOST": config("DB_HOST"),
-            "PORT": config("DB_PORT"),
+            "NAME": config("DB_NAME", default="student_db"),
+            "USER": config("DB_USER", default="root"),
+            "PASSWORD": config("DB_PASSWORD", default=""),
+            "HOST": config("DB_HOST", default="localhost"),
+            "PORT": config("DB_PORT", default="3306"),
             "OPTIONS": {"charset": "utf8mb4"},
         }
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
